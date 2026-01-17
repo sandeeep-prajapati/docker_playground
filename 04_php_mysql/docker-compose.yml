@@ -1,0 +1,40 @@
+services:
+  php_04:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: php_app_04
+    ports:
+      - "8080:80"
+    volumes:
+      - ./php:/var/www/html
+    environment:
+      MYSQL_HOST: db_04
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: app_pass
+    depends_on:
+      - db_04
+    networks:
+      - app_net_04
+
+  db_04:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_pass
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: app_user
+      MYSQL_PASSWORD: app_pass
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app_net_04
+
+networks:
+  app_net_04:
+    driver: bridge
+
+volumes:
+  mysql_data:

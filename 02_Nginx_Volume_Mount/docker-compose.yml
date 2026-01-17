@@ -1,0 +1,9 @@
+services:
+  nginx_02:
+    image: nginx:latest
+    container_name: nginx_02
+    ports:
+      - "8080:80"
+      
+    volumes:
+      - ./html:/usr/share/nginx/html

@@ -1,0 +1,91 @@
+# =========================
+
+# OS / Editor
+
+# =========================
+
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# =========================
+
+# Node / React
+
+# =========================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+build/
+.env
+.env.*
+
+
+# =========================
+
+# Python / Django
+
+# =========================
+
+**pycache**/
+*.py[cod]
+*.db
+*.sqlite3
+.env
+venv/
+
+# =========================
+
+# PHP
+
+# =========================
+
+vendor/
+composer.lock
+.env
+
+# =========================
+
+# Go
+
+# =========================
+
+bin/
+*.exe
+*.out
+*.test
+
+# =========================
+
+# Docker
+
+# =========================
+
+docker-data/
+*.log
+*.pid
+
+# =========================
+
+# Secrets
+
+# =========================
+
+*.pem
+*.key
+*.crt
+secrets/
+
+# =========================
+
+# Docker Compose
+
+# =========================
+
+docker-compose.override.yml
