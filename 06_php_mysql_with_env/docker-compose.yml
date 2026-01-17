@@ -1,0 +1,55 @@
+services:
+  db_06:
+    image: mysql:8.0
+    container_name: mysql_db_06
+    restart: always
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+
+    networks:
+      - app_net
+
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+
+  php_06:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    image: php:8.2-apache
+    container_name: php_app_06
+    ports:
+      - "8080:80"
+
+    volumes:
+      - ./php:/var/www/html
+
+    env_file:
+      - .env
+
+    environment:
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    
+    depends_on:
+      db_06:
+        condition: service_healthy
+    networks:
+      - app_net
+
+networks:
+  app_net:
+    driver: bridge

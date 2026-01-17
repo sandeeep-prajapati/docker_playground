@@ -1,0 +1,17 @@
+services:
+  nginx_03:
+    image: nginx:latest
+    container_name: nginx_03
+    
+    ports:
+      - "8080:80"
+
+    volumes:
+      - ./html:/usr/share/nginx/html
+
+    networks:
+      - web_net_03
+
+networks:
+  web_net_03:
+    driver: bridge
